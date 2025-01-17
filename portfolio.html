@@ -1,0 +1,181 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Photography Page</title>  
+    <style>  
+        body {  
+            margin: 0;  
+            font-family: Arial, sans-serif;  
+        }  
+        .hero-section {  
+            position: relative;  
+            width: 100%;  
+            height: 100vh;  
+            /*overflow: hidden;*/  
+            background-image: url('images/02160007.jpg'); /* Hero image */  
+            background-size: cover;  
+            background-position: center;  
+        }  
+        .hero-overlay {  
+            position: absolute;  
+            top: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 100%;  
+            background-color: rgba(0, 0, 0, 0.1); /* 0.1% transparent black */ 
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            text-align: center;  
+            color: white;  
+            z-index: 1;  
+        }  
+        .hero-text {  
+            font-size: 200px;
+        }  
+
+        .nav-container {  
+            display: flex;  
+            align-items: center; 
+			z-index: 2 !important;
+        }  
+        .nav-link {  
+            color: rgba(255, 255, 255, 0.5);  
+            text-decoration: none;  
+            margin: 0 10px;  
+            font-weight: bold;  
+            position: relative;  
+            padding-bottom: 9px; /* Adds padding to align with "Home" */ 
+			z-index: 2;
+        }  
+		.nav-link::after {  
+			content: '';  
+			display: block;  
+			width: 100%;  
+			height: 4px;  
+			background: transparent; /* Ensure this starts as transparent */  
+			position: absolute;  
+			bottom: 0;  
+			left: 0;  
+			transition: background 0.3s;
+			z-index: 2;
+		}  
+		.nav-link:hover::after {  
+			background: rgba(255, 255, 255, 0.5); /* Add transparency on hover */ 
+			z-index: 2;
+		}
+        .active-link {  
+            margin: 0 10px;  
+            text-align: center; 
+        }  
+        .active-link div {  
+            border-bottom: 4px solid white;  
+            margin-top: 5px;  
+            width: 100%;  
+        }  
+
+        .gallery-section {  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            flex-wrap: wrap;  
+            padding: 20px;  
+        }  
+        .gallery-image {  
+            width: 30%;  
+            margin: 10px;  
+            overflow: hidden;  
+            opacity: 0;  
+            transition: opacity 2s; /* Smooth transition for opacity */  
+        }  
+        .gallery-image.visible {  
+            opacity: 1; /* Visible when in view */  
+        }  
+        .gallery-image img {  
+            width: 100%;  
+            height: auto;  
+            display: block;  
+        }  
+		
+		
+    </style>  
+</head>  
+<body>  
+  
+    <!-- Hero Section -->  
+    <div class="hero-section">
+	
+            <div style="position: absolute; top: 120px; left: 25%; font-size: 25px; font-weight: bold; color: white">  
+                NICOLE PEREZ  
+            </div>
+			
+            <div class="nav-container" style="position: absolute; top: 120px; left: 60%; transform: translateX(-40%);"> 
+                <a href="#" class="nav-link">Home</a> 
+                <a href="#" class="nav-link">About</a>  
+                <div class="active-link">  
+                    <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Portfolio</a>  
+                 <div></div>  
+                </div>  
+                <a href="#" class="nav-link">Contact</a>  
+            </div>  
+		
+		
+        <div class="hero-overlay">  
+            <div class="hero-text" style="font-family: 'Newston'; @font-face { font-family: 'Newston'; src: url('fonts/Newston Regular.otf');} ">  
+                <br>LOCAL EVENTS & GATHERINGS<br>  
+                ON FILM AND DIGITAL  
+            </div>  
+        </div>  
+    </div>  
+	
+    <!-- Gallery Section -->  
+    <div class="gallery-section">  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 1"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 2"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 3"> <!-- Placeholder for gallery image -->  
+        </div>  
+		
+		 <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 1"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 2"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 3"> <!-- Placeholder for gallery image -->  
+        </div>  
+		
+    </div>  
+	
+	<script>
+	// Function to handle intersection events  
+	function handleIntersection(entries, observer) {  
+		entries.forEach(entry => {  
+			if (entry.isIntersecting) {  
+				entry.target.classList.add('visible');  
+				observer.unobserve(entry.target);  
+			}  
+		});  
+	}  
+	  
+	// Create an intersection observer  
+	const observer = new IntersectionObserver(handleIntersection, {  
+		threshold: 0.1 // Trigger when 10% of the element is visible  
+	});  
+	  
+	// Select all gallery images and observe each one  
+	document.querySelectorAll('.gallery-image').forEach(image => {  
+		observer.observe(image);  
+	}); 
+
+	</script>
+  
+</body>  
+</html>  
