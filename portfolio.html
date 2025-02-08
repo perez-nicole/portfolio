@@ -4,7 +4,26 @@
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>N. PEREZ</title>  
-    <style>  
+    <style>
+	/* Because of janky way I did navbar, need to just have codes for 2 separate pages at breakpoint */
+
+        @media (max-width: 949.98px) {
+        .HideOnMobile {
+            display: none;
+        }
+        .ShowOnMobile {
+            display: initial;
+        }
+        }
+
+        @media (min-width: 950px) {
+        .HideOnMobile {
+            display: initial;
+        }
+        .ShowOnMobile {
+            display: none;
+        }
+        }
         body {  
             margin: 0;  
             font-family: Arial, sans-serif;  
@@ -39,10 +58,7 @@
             text-align: center;  
             color: white;  
             z-index: 1;  
-        }  
-        .hero-text {  
-            font-size: 200px;
-        }  
+        }
 
         .nav-container {  
             display: flex;  
@@ -106,12 +122,51 @@
             height: auto;  
             display: block;  
         }  
-		
+
+        /* Mobile elements CSS */
+        .hamburger-menu{
+            position: absolute;
+            top: 100px;
+            right: 10%;
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            z-index: 4;
+        }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 3;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .nav-container-mobile {
+            display:flex;
+            flex-direction: column;
+        }
+
+        .nav-link-mobile {
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            font-size: 30px;
+            font-weight: bold;
+            position: relative;
+            z-index: 3;
+        }
 		
     </style>  
 </head>  
 <body>  
-  
+<div class="HideOnMobile">
     <!-- Hero Section -->  
     <div class="hero-section">
 	
@@ -131,7 +186,7 @@
 		
 		
         <div class="hero-overlay">  
-            <div class="hero-text" style="font-family: 'Newston';">  
+            <div class="hero-text" style="font-family: 'Newston'; font-size: 200px;">  
                 <br>LOCAL EVENTS & GATHERINGS<br>  
                 ON FILM AND DIGITAL  
             </div>  
@@ -161,7 +216,64 @@
         </div>  
 		
     </div>  
+</div>
+
+<div class="ShowOnMobile">
+    <!-- Hero Section -->  
+    <div class="hero-section">
 	
+            <div style="position: absolute; top: 120px; left: 15%; font-size: 25px; font-weight: bold; color: white; font-family: ArimoBold;">  
+                NICOLE PEREZ  
+            </div>
+			
+            <!-- Hamburger -->
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                &#9776;
+            </div>
+
+            <div class="nav-overlay" id="nav-overlay">
+                <div class="nav-container-mobile">
+                <a href="#" class="nav-link-mobile">Home</a>
+                <a href="#" class="nav-link-mobile">About</a></li>
+                <a href="portfolio.html" class="nav-link-mobile">Portfolio</a>
+                <a href="#" class="nav-link-mobile">Contact</a>
+            </div>
+        </div>
+		
+		
+        <div class="hero-overlay">  
+            <div class="hero-text" style="padding-left: 8%; padding-right: 8%; font-size: 120px; font-family: 'Newston'; font-size: 200px;">  
+                <br>LOCAL EVENTS & GATHERINGS<br>  
+                ON FILM AND DIGITAL  
+            </div>  
+        </div>  
+    </div>  
+	
+    <!-- Gallery Section -->  
+    <div class="gallery-section">  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 1"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 2"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 3"> <!-- Placeholder for gallery image -->  
+        </div>  
+		
+		 <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 1"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 2"> <!-- Placeholder for gallery image -->  
+        </div>  
+        <div class="gallery-image">  
+            <img src="images/02160013.jpg" alt="Gallery Image 3"> <!-- Placeholder for gallery image -->  
+        </div>  
+		
+    </div>  
+</div>
+
 	<script>
 	// Function to handle intersection events  
 	function handleIntersection(entries, observer) {  
@@ -181,7 +293,13 @@
 	// Select all gallery images and observe each one  
 	document.querySelectorAll('.gallery-image').forEach(image => {  
 		observer.observe(image);  
-	}); 
+	});
+
+	function toggleMenu() {
+	    const overlay = document.getElementById("nav-overlay");
+	    overlay.style.display = overlay.style.display === "flex" ? "none" : "flex";
+	
+	    }
 
 	</script>
   
