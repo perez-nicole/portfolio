@@ -100,28 +100,29 @@
             width: 100%;  
         }  
 
-        .gallery-section {  
-            display: flex;  
-            justify-content: center;  
-            align-items: center;  
-            flex-wrap: wrap;  
-            padding: 20px;  
-        }  
-        .gallery-image {  
-            width: 30%;  
-            margin: 10px;  
-            overflow: hidden;  
-            opacity: 0;  
-            transition: opacity 2s; /* Smooth transition for opacity */  
-        }  
-        .gallery-image.visible {  
-            opacity: 1; /* Visible when in view */  
-        }  
-        .gallery-image img {  
-            width: 100%;  
-            height: auto;  
-            display: block;  
-        }  
+        .gallery-section { 
+            display: flex; 
+            flex-wrap: wrap;
+            justify-content: center; 
+            padding: 0 15px; /* Add horizontal padding to balance the margins */
+            
+        } 
+
+        .gallery-section img { 
+            height: 300px; /* Set the desired height */ 
+            width: auto; /* Maintain aspect ratio */ 
+            object-fit: cover; /* Ensures the image covers the area */ 
+            margin: 15px; /* Optional: adds some space between images */ 
+            opacity: 0; /* Start images hidden */
+            transform: translateY(20px); /* Optional: start images slightly tranlsated for a reveal effect */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Smooth transition for appearance */
+
+        } 
+
+        .gallery-section img.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Mobile elements CSS */
         .hamburger-menu{
@@ -194,29 +195,18 @@
     </div>  
 	
     <!-- Gallery Section -->  
-    <div class="gallery-section">  
-        <div class="gallery-image">  
-            <img src="images/02160013.jpg" alt="Gallery Image 1">
-        </div>  
-        <div class="gallery-image">  
-            <img src="images/R1-08043-0024.JPG" alt="Gallery Image 2">
-        </div>  
-        <div class="gallery-image">  
-            <img src="images/R1-09517-0004.JPG" alt="Gallery Image 3">
-        </div>  
-		
-	<div class="gallery-image">  
-            <img src="images/R1-09517-0021.JPG" alt="Gallery Image 4">
-        </div>  
-        <div class="gallery-image">  
-            <img src="images/02160013.jpg" alt="Gallery Image 5"> <!-- Placeholder for gallery image -->  
-        </div>  
-        <div class="gallery-image">  
-            <img src="images/02160013.jpg" alt="Gallery Image 6"> <!-- Placeholder for gallery image -->  
-        </div>  
-		
-    </div>  
-</div>
+    <div class="gallery-section"> 
+        <img src="images/02160007.jpg" alt="Image 1"> 
+        <img src="images/02160013.jpg" alt="Image 2"> 
+        <img src="images/R1-09517-0022.jpg" alt="Image 3"> 
+        <img src="images/34139044935-R1-019-8.jpg" alt="Image 4">
+        <img src="images/34139044935-R1-019-8.jpg" alt="Image 5"> 
+        <img src="images/R1-09517-0022.jpg" alt="Image 6"> 
+        <img src="images/34139044935-R1-019-8.jpg" alt="Image 7">
+        <img src="images/02160013.jpg" alt="Image 8"> 
+        <img src="images/R1-09517-0022.jpg" alt="Image 9"> 
+    </div>
+</div> <!-- end HideOnMobile -->
 
 <div class="ShowOnMobile">
     <!-- Hero Section -->  
@@ -275,26 +265,35 @@
 </div>
 
 	<script>
-	// Function to handle intersection events  
-	function handleIntersection(entries, observer) {  
-		entries.forEach(entry => {  
-			if (entry.isIntersecting) {  
-				entry.target.classList.add('visible');  
-				observer.unobserve(entry.target);  
-			}  
-		});  
-	}  
-	  
-	// Create an intersection observer  
-	const observer = new IntersectionObserver(handleIntersection, {  
-		threshold: 0.1 // Trigger when 10% of the element is visible  
-	});  
-	  
-	// Select all gallery images and observe each one  
-	document.querySelectorAll('.gallery-image').forEach(image => {  
-		observer.observe(image);  
-	});
-
+	// Fade in images in gallery
+	    document.addEventListener("DOMContentLoaded", function() {
+		const images = document.querySelectorAll('.gallery-section img');
+	
+		const observerOptions = {
+		    root: null, // Use the viewport as the container
+		    rootMargin: '0px',
+		    threshold: 0.1 // Trigger when 10% of the image is visible
+	
+		};
+	
+		const observer = new IntersectionObserver((entries, observer) => {
+		    entries.forEach(entry => {
+			if (entry.isIntersecting) {
+			    entry.target.classList.add('visible');
+			    observer.unobserve(entry.target); // Stop observing once the image is visible
+			}
+	
+		});
+	    }, observerOptions);
+	
+	    images.forEach(image => {
+		observer.observe(image);
+		});
+	    });
+	
+	
+	    // Toggle menu over full screen if on mobile
+	
 	function toggleMenu() {
 	    const overlay = document.getElementById("nav-overlay");
 	    overlay.style.display = overlay.style.display === "flex" ? "none" : "flex";
